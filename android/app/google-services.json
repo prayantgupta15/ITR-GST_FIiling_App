@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "306375197290",
+    "firebase_url": "https://askcommercials-62e09.firebaseio.com",
+    "project_id": "askcommercials-62e09",
+    "storage_bucket": "askcommercials-62e09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306375197290:android:8142f6696b272f3c324013",
+        "android_client_info": {
+          "package_name": "com.askcommercials.com.askcommercials"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306375197290-voqkspek0kg2airb90e0pkpbscde85vc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBopdZfH5-jfhmB7_6hg5KySUHB3ZbJeGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306375197290-voqkspek0kg2airb90e0pkpbscde85vc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
