@@ -33,7 +33,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             alignment: Alignment.center,
             children: <Widget>[
               RaisedButton(
-                child: isSaved ? Text("Downloaded ") : Text("Download QR Code"),
+                child: isSaved ? Text("Downloaded") : Text("Download QR Code"),
                 onPressed: () {
                   setState(() {
                     isPressed = true;
