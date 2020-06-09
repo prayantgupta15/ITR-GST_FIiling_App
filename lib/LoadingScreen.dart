@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:askcommercials/Utils/StringUtils.dart';
 import 'package:askcommercials/Utils/utils_importer.dart';
 import 'package:askcommercials/profile.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,11 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   String version = ' ';
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   //VERSION CHECK
   versionCheck(BuildContext context) async {
     print("VERSION CHeck()");
-
 //    final databaseReference = Firestore.instance;
 
 //    try {
@@ -49,7 +51,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
 
-    print(remoteConfig.toString());
+    try {
+      _firebaseMessaging.getToken().then((token) {
+        print("token: " + token.toString());
+      });
+    } catch (e) {
+      print(e.toString());
+    }
     try {
       // Using default duration to force fetching from remote server.
       print("trying");
