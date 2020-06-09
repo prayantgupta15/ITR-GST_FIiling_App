@@ -1,6 +1,7 @@
 import 'package:askcommercials/Utils/StringUtils.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -10,6 +11,11 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   bool isPressed = false, isSaved = false;
 
+  void copy(String msg) {
+    Clipboard.setData(ClipboardData(text: msg));
+    Fluttertoast.showToast(msg: 'Copied $msg');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,45 +23,64 @@ class _PaymentScreenState extends State<PaymentScreen> {
         backgroundColor: Colors.orange,
         title: Text('Payment'),
       ),
-      body: Container(
-          child: Column(
-        children: <Widget>[
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Text("Loading QR Code..."),
-              Image(
-                image: NetworkImage(StringUtils.PAYMENT_CODE_URL),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate([
+              ExpansionTile(
+                children: <Widget>[Image(image: AssetImage(StringUtils.GPAY))],
+                title: Text("Google Pay QR", style: ts),
               ),
-            ],
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              RaisedButton(
-                child: isSaved ? Text("Downloaded") : Text("Download QR Code"),
-                onPressed: () {
-                  setState(() {
-                    isPressed = true;
-                  });
-                  GallerySaver.saveImage(
-                    //path:
-                    StringUtils.PAYMENT_CODE_URL,
-                    albumName: 'AskCommercials',
-                  ).then((bool success) {
-                    setState(() {
-                      isPressed = false;
-                      isSaved = true;
-                      print('Image Saved');
-                    });
-                  });
-                },
+              Divider(),
+              ExpansionTile(children: <Widget>[
+                Image(
+                  image: AssetImage(StringUtils.PAYTM),
+                )
+              ], title: Text("Paytm QR", style: ts)),
+              Divider(),
+              ExpansionTile(
+                children: <Widget>[
+                  ListTile(
+                      title:
+                          Text("Acc Name: ${StringUtils.ACC_NAME}", style: ts),
+                      trailing: IconButton(
+                        icon: Icon(Icons.content_copy, color: Colors.orange),
+                        onPressed: () {
+                          copy(StringUtils.ACC_NAME);
+                        },
+                      )),
+                  ListTile(
+                      title: Text("A/C No: ${StringUtils.ACC_NO}", style: ts),
+                      trailing: IconButton(
+                        icon: Icon(Icons.content_copy, color: Colors.orange),
+                        onPressed: () {
+                          copy(StringUtils.ACC_NO);
+                        },
+                      )),
+                  ListTile(
+                      title: Text("IFSC Code: ${StringUtils.IFSC}", style: ts),
+                      trailing: IconButton(
+                        icon: Icon(Icons.content_copy, color: Colors.orange),
+                        onPressed: () {
+                          copy(StringUtils.IFSC);
+                        },
+                      )),
+                  ListTile(
+                      title:
+                          Text("Acc Branch: ${StringUtils.BRANCH}", style: ts),
+                      trailing: IconButton(
+                        icon: Icon(Icons.content_copy, color: Colors.orange),
+                        onPressed: () {
+                          copy(StringUtils.BRANCH);
+                        },
+                      )),
+                ],
+                title: Text("Bank Details", style: ts),
               ),
-              isPressed ? CircularProgressIndicator() : Container()
-            ],
+            ]),
           )
         ],
-      )),
+      ),
     );
   }
 }

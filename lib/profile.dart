@@ -94,7 +94,7 @@ class CollapsingList extends StatelessWidget {
                               child: Image(image: AssetImage('assets/2.PNG'))),
                           ListTile(
                             title: Text(
-                              "ITR Filling",
+                              "ITR Filing",
                               style: ts,
                             ),
                             subtitle: Text("Income Tax Return Filing"),
@@ -121,7 +121,7 @@ class CollapsingList extends StatelessWidget {
                               child: Image(image: AssetImage('assets/1.PNG'))),
                           ListTile(
                             title: Text(
-                              "GST Filling",
+                              "GST Filing",
                               style: ts,
                             ),
                             subtitle: Text("Good & Service Tax Filing"),
