@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:askcommercials/Utils/StringUtils.dart';
 import 'package:askcommercials/Utils/utils_importer.dart';
@@ -15,14 +16,15 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  String version = ' ';
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
+  double currentVersion=0.0; String currentVersionName=' ';
   //VERSION CHECK
-  versionCheck(BuildContext context) async {
+  newVersionCheck(BuildContext context) async {
     print("VERSION CHeck()");
-//    final databaseReference = Firestore.instance;
 
+    //Get Latest version info from firestore databse
+//    final databaseReference = Firestore.instance;
 //    try {
 //      databaseReference
 //          .collection('APP_NEW_VERSION')
@@ -40,12 +42,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 //    } catch (e) {
 //      print(e.toString());
 //    }
-    //Get Current installed version of app
-    final PackageInfo info = await PackageInfo.fromPlatform();
-    double currentVersion =
-        double.parse(info.version.trim().replaceAll(".", ""));
-    version = info.version;
-    print('currentVersion' + currentVersion.toString());
 
     //Get Latest version info from firebase config
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
@@ -64,7 +60,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       await remoteConfig.fetch(expiration: const Duration(seconds: 5));
       print("after fetch");
       await remoteConfig.activateFetched();
-      remoteConfig.getString('force_update_current_version');
       double newVersion = double.parse(remoteConfig
           .getString('force_update_current_version')
           .trim()
@@ -84,7 +79,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
           'used');
     }
   }
+  currentVersionCheck()async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    currentVersionName = info.version;
+    currentVersion =
+        double.parse(info.version.trim().replaceAll(".", ""));
+    print('currentVersion' + currentVersion.toString());
 
+  }
   //SHOW DIALOG
   _showVersionDialog(context) async {
     print("showDialog()");
@@ -151,8 +153,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     // TODO: implement initState
     print("INITSTATE()");
+    currentVersionCheck();
+    if(mounted)
+      setState(() {});
     try {
-      versionCheck(context);
+      newVersionCheck(context);
     } catch (e) {
       print(e);
     }
@@ -221,7 +226,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         alignment: Alignment.bottomCenter,
         color: Colors.orange,
         child: Text(
-          "Build Version " + version,
+          "Build Version " + currentVersionName,
           style: TextStyle(
               color: Colors.white,
               fontFamily: UtilsImporter().stringUtils.HKGrotesk,

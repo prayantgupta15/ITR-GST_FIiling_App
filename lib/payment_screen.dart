@@ -2,6 +2,7 @@ import 'package:askcommercials/Utils/StringUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -10,6 +11,12 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   bool isPressed = false, isSaved = false;
+
+  void _saveImage(String path) async {
+    GallerySaver.saveImage(path, albumName: 'Ask Comm.').then((bool success) {
+     Fluttertoast.showToast(msg: "QR Code saved in Gallery");
+    });
+  }
 
   void copy(String msg) {
     Clipboard.setData(ClipboardData(text: msg));
@@ -28,11 +35,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
           SliverList(
             delegate: SliverChildListDelegate([
               ExpansionTile(
-                children: <Widget>[Image(image: AssetImage(StringUtils.GPAY))],
+                children: <Widget>[
+                  RaisedButton(
+                    child: Icon(Icons.file_download),
+                    color: Colors.blue,
+                    onPressed: () {
+                      _saveImage(StringUtils.GPAY_CODE_URL);
+                    },
+                  ),
+                  Image(image: AssetImage(StringUtils.GPAY))
+                ],
                 title: Text("Google Pay QR", style: ts),
               ),
               Divider(),
-              ExpansionTile(children: <Widget>[
+              ExpansionTile(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Icon(Icons.file_download),
+                      color: Colors.blue,
+                      onPressed: () {
+                      _saveImage(StringUtils.PAYTM_CODE_URL);
+                      },
+                    ),
                 Image(
                   image: AssetImage(StringUtils.PAYTM),
                 )
