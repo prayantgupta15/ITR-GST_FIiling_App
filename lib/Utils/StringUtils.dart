@@ -9,11 +9,14 @@ class StringUtils {
   //FAB
   static String MESSAGE = 'Hi';
   static String FB_URL = 'https://www.facebook.com/askcommercials/';
-  static String JD_URL = 'https://jsdl.in/DT-23ZIUPHK';
+  static String JD_URL = 'https://www.justdial.com/Delhi/Ask-Commercial-Solutions-Adarsh-Nagar/011PXX11-XX11-100802153040-Q7P4_BZDET';
   static String MAP_URL = "https://www.google.com/maps/search/?api=1&query=ASK+Commercial+Solutions";
+  static String LINKEDIN_URL = 'https://www.linkedin.com/company/askcommercials';
 
   //URL
-  static String ITR_URL ="https://docs.google.com/forms/d/e/1FAIpQLSdcUdYquVZPBWoX5Uk-NDm2KJy3UtR6tskkOXaLh_umvHjQ1g/viewform";
+  static String ITR_URL_NON_EXIST ="https://docs.google.com/forms/d/e/1FAIpQLSdcUdYquVZPBWoX5Uk-NDm2KJy3UtR6tskkOXaLh_umvHjQ1g/viewform";
+  static String ITR_URL_EXIST = 'https://docs.google.com/forms/d/e/1FAIpQLSf6QZT_3GtUuy0qtAx0su2YVL_yfTyjeZZP6T80BjYT-gEcUw/viewform';
+
   static String GST_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSct6lTk9bJ1R7DQIGUyeGw38sfYbHnSqwkqp0P3dMN0yqg_rQ/viewform';
   static String FORMS_URL = 'https://www.askcommercials.com/downloads';
   static String PAYMENT_URL = 'https://www.askcommercials.com/contact-us';
